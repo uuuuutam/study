@@ -1,11 +1,14 @@
 package com.example.miwamoto.myapplication01;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,30 +18,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void changeLabel(View view) {
+    public void getOmikuji(View view) {
+        // TextViewの取得
         TextView tv = (TextView)findViewById(R.id.myTextView);
-        tv.setText("Changed!");
-    }
+        String[] results =  {
+            "大吉",
+            "吉",
+            "凶"
+        };
+        // 乱数の生成
+        Random randomGenerator = new Random();
+        int num = randomGenerator.nextInt(results.length); // 0~2のどれかを返す
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        // 大吉を赤文字として指定する
+        if ( num == 0 ){
+            tv.setTextColor(Color.RED);
+        } else {
+            tv.setTextColor(Color.rgb(0, 0, 0));
         }
-
-        return super.onOptionsItemSelected(item);
+        // 結果の表示
+//        String result = Integer.toString(num);
+        tv.setText(results[num]);
     }
 }
